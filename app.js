@@ -24,57 +24,27 @@ const app = express()
 // Numero porta del server 
 const port = 3000
 
-// Rotta di tipo get con la home /
-app.get('/', (req, res) => {
 
-    // Invia una risposta al client
-    res.send(`Server del mio blog`)
-})
+// 
+    // IMPORTO IL ROUTER 
+    const postRouter = require("./routers/posts")
 
+    // Rotta di tipo get con la home /
+    app.get('/', (req, res) => {
+
+        // Invia una risposta al client
+        res.send(`Server del mio blog`)
+    })
+
+    // Diciamo ad express che ci sono altre rotte con .use
+    // Dove gli indico la path dove stanno tutte le rotte e l istanza
+    app.use("/posts", postRouter)
+
+// 
 
 // DEFINIAMO L'USO DI UNA CARTELLA PUBLIC CON ALL' INTERNO DEI FILE STATICI 
 app.use(express.static('public'));
 
-// ROTTA bacheca POSTS
-app.get('/bacheca', (req, res) => {
-    
-    // Faccio array di oggetti con titolo, contenuto, immagine e tag
-    const posts = [
-        {
-            titolo: "Ricetta del Ciambellone soffice",
-            contenuto: "Scopri come preparare un ciambellone soffice e gustoso, perfetto per la colazione o la merenda.",
-            immagine: "/images/ciambellone.jpeg",
-            tags: ["Dolci", "Colazione", "Forno"]
-        },
-        {
-            titolo: "Cracker fatti in casa: croccanti e genuini",
-            contenuto: "Preparare i cracker in casa è facile e veloce! Perfetti per uno snack leggero e salutare.",
-            immagine: "/images/cracker_barbabietola.jpeg",
-            tags: ["Snack", "Sano", "Forno"]
-        },
-        {
-            titolo: "Pane fritto: una delizia da provare",
-            contenuto: "Il pane fritto è una ricetta semplice e sfiziosa, perfetta per accompagnare salumi e formaggi.",
-            immagine: "/images/pane_fritto_dolce.jpeg",
-            tags: ["Pane", "Fritto", "Tradizione"]
-        },
-        {
-            titolo: "Pasta fatta in casa: il segreto della nonna",
-            contenuto: "Impara a fare la pasta fresca in casa con pochi ingredienti e tanta passione.",
-            immagine: "/images/pasta_barbabietola.jpeg",
-            tags: ["Pasta", "Tradizione", "Fatto in casa"]
-        },
-        {
-            titolo: "Torta Paesana: un dolce della tradizione",
-            contenuto: "La Torta Paesana è un dolce tipico lombardo a base di pane raffermo, latte e cacao.",
-            immagine: "/images/torta_paesana.jpeg",
-            tags: ["Dolci", "Tradizione", "Lombardia"]
-        }
-    ];
-    
-    // Invio la risposta al client con il formato json (posts)
-    res.json(posts)
-})
 
 
 // Rimane in chiamata con la porta 
